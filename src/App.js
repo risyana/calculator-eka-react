@@ -86,11 +86,19 @@ class App extends Component {
     let lastChain_i, calcChain_i;
 
     lastChain_i = this.state.lastChain;
-    lastChain_i = isNaN(lastChain_i) || lastChain_i == "0" ? "" : lastChain_i;
-    lastChain_i =  `${lastChain_i}${event.target.innerHTML}`;
+    calcChain_i = this.state.calcChain;
+    
+    if (!(event.target.innerHTML == "0" && isNaN(calcChain_i) && this.state.lastChain == "0")){       
+      // check case : after press CE
+      calcChain_i = this.state.calcChain == "0" 
+                    ? event.target.innerHTML 
+                    : `${this.state.calcChain}${event.target.innerHTML}`;
 
-    calcChain_i = this.state.calcChain == "0" ? event.target.innerHTML : 
-    `${this.state.calcChain}${event.target.innerHTML}`;
+      lastChain_i = isNaN(lastChain_i) || lastChain_i == "0" 
+                    ? "" 
+                    : lastChain_i;
+      lastChain_i =  `${lastChain_i}${event.target.innerHTML}`;
+    }
 
     this.setState({
       calcChain : calcChain_i,
@@ -111,7 +119,7 @@ class App extends Component {
     lastChain_i = this.state.lastChain;
 
     calcChain_i = calcChain_i.substr(0, calcChain_i.length - 1);
-    lastChain_i = calcChain_i.charAt(calcChain_i.length - 1);
+    lastChain_i = lastChain_i.substr(0, lastChain_i.length - 1);
 
     if (calcChain_i == "") {
         calcChain_i = "0"; 
